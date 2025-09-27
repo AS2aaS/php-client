@@ -1,0 +1,9 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - src/Laravel/config/as2aas.php
+    ignoreErrors:
+        - '#Call to an undefined method Mockery\\ExpectationInterface|Mockery\\HigherOrderMessage#'

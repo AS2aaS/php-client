@@ -388,7 +388,36 @@ The complete 7-step inheritance process:
 - Selective Control: Choose which tenants inherit which partners
 - Audit Trail: Track all inheritance relationships and changes
 
-### Testing and Development
+## Testing
+
+### Unit Testing with Mock Client
+
+For unit testing your application without making actual API calls, use the built-in mock client:
+
+```php
+use AS2aaS\Client;
+
+// Create mock client (no API calls)
+$mockAs2 = Client::createMock();
+
+// Mock client has same interface as real client
+$partner = $mockAs2->partners()->create([
+    'name' => 'Test Partner',
+    'as2_id' => 'TEST-PARTNER',
+    'url' => 'https://test.example.com/as2'
+]);
+
+$message = $mockAs2->messages()->send($partner, 'test content', 'Test Subject');
+echo $message->getStatus(); // 'delivered' (simulated)
+
+// Access mock data for assertions
+$mockData = $mockAs2->getMockData();
+$this->assertCount(1, $mockData->partners);
+```
+
+### Integration Testing with Test Environment
+
+For integration testing against the AS2aaS test environment:
 
 ```php
 // Use test environment with test API key (API auto-detects from key)
@@ -401,18 +430,33 @@ $as2 = Client::createTest('pk_test_your_key');
 $info = $as2->sandbox()->getInfo();
 $samples = $as2->sandbox()->getSample('edi-850');
 
-// Simulate incoming message in test environment
-$incomingMessage = $as2->sandbox()->simulateIncoming([
-    'partnerId' => 'prt_000001',
-    'content' => $sampleEDIContent,
-    'contentType' => 'application/edi-x12',
-    'subject' => 'Test Purchase Order'
-]);
-
 // Send test messages to verify partner setup
 $testResult = $as2->messages()->sendTest($partner, [
     'messageType' => 'sample_edi'
 ]);
+```
+
+### Laravel Testing
+
+```php
+// In your Laravel tests
+use AS2aaS\Client;
+use AS2aaS\Testing\MockClient;
+
+class OrderTest extends TestCase
+{
+    public function test_can_send_order()
+    {
+        // Bind mock client
+        $this->app->singleton(Client::class, function () {
+            return Client::createMock();
+        });
+
+        // Your test code
+        $response = $this->post('/orders/send', ['partner_id' => 'MCKESSON']);
+        $response->assertStatus(200);
+    }
+}
 ```
 
 ### Utility Functions

@@ -5,7 +5,42 @@ All notable changes to the AS2aaS PHP Client will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2024-01-01
+## [1.1.0] - 2025-09-28
+
+### Added
+- Complete mock client implementation for unit testing without API calls
+- Comprehensive testing documentation and examples
+- Laravel testing integration patterns
+- Enhanced test coverage (60 tests, 226 assertions)
+- Professional README with Laravel instructions prominently featured
+- Mock data seeding with realistic pharmaceutical partners
+- Master partner inheritance simulation in mock client
+- Webhook signature verification testing
+- Direct mock data access for test assertions
+
+### Fixed
+- All API endpoint paths corrected (removed leading slashes)
+- Message sending API integration with proper idempotency keys
+- Webhook creation API integration with UUID idempotency keys
+- Data models updated to match actual API response structures
+- Partner, Message, Account, and Tenant models field mapping
+- Test suite compatibility with updated API responses
+- PHPUnit test failures resolved
+
+### Changed
+- Updated README to be business-focused and professional
+- Moved Laravel integration instructions to prominent position
+- Enhanced error handling in HttpClient for missing API keys
+- Improved mock client interface to match real client exactly
+
+### Improved
+- Authentication flow with better error messages
+- Tenant context management with X-Tenant-ID headers
+- Master partner inheritance with account ID in API paths
+- Test coverage for all core models and modules
+- Documentation clarity for enterprise and DSCSA use cases
+
+## [1.0.0] - 2025-09-27
 
 ### Added
 - Initial release of AS2aaS PHP Client

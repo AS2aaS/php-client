@@ -78,6 +78,17 @@ class Client
     }
 
     /**
+     * Create mock client for testing
+     * 
+     * Returns a fully functional mock client that simulates AS2aaS operations
+     * without making actual API calls. Perfect for unit testing.
+     */
+    public static function createMock(): \AS2aaS\Testing\MockClient
+    {
+        return new \AS2aaS\Testing\MockClient();
+    }
+
+    /**
      * Set global configuration defaults
      */
     public static function configure(array $config): void

@@ -1,11 +1,11 @@
 {
     "name": "as2aas/php-client",
+    "version": "1.1.0",
     "description": "PHP client library for AS2aaS - Making AS2 messaging as simple as sending an email",
     "type": "library",
     "keywords": ["as2", "edi", "b2b", "messaging", "integration", "healthcare", "supply-chain"],
     "homepage": "https://github.com/as2aas/php-client",
     "license": "MIT",
-    "version": "1.0.0",
     "authors": [
         {
             "name": "AS2aaS Team",
